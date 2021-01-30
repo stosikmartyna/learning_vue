@@ -1,0 +1,15 @@
+.item {
+  border: 1px solid grey;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+  padding: 10px;
+}
+
+.item_completed {
+  opacity: 0.5;
+}
+
+.item_completed span {
+  text-decoration: line-through;
+}
