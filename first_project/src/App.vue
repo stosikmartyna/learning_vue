@@ -1,28 +1,35 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <input placeholder="Todo" v-model="newItem"/>
+    <button @click="addItem">Add</button>
+    <div>
+      <div v-for="item in items" v-bind:key="item.id">
+        <span>{{ item.title }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      newItem: '',
+      items: [
+        { title: 'To water the plants', completed: false, id: 1 },
+        { title: 'Take out the trash', completed: true, id: 2 }
+      ]
+    }
+  },
+  methods: {
+    addItem() {
+      this.items.push({ 
+        title: this.newItem, 
+        completed: false, 
+        id: Math.random()
+      })
+    this.newItem = ''
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
