@@ -1,11 +1,20 @@
 <template>
-  <div>
-    <input placeholder="Todo" v-model="newItem"/>
-    <button @click="addItem">Add</button>
-    <div>
-      <div v-for="item in items" v-bind:key="item.id">
-        <span>{{ item.title }}</span>
-      </div>
+  <div class="container">
+    <div class="form">
+      <input placeholder="Todo" v-model="newItem"/>
+      <button @click="addItem">Add</button>
+    </div>
+
+    <div 
+      class="item" 
+      v-bind:class="{
+        item_completed: item.completed
+      }" 
+      v-for="item in items" 
+      v-bind:key="item.id"
+    >
+      <span>{{ item.title }}</span>
+      <button v-if="!item.completed" @click="selectItem(item.id)">Done</button>
     </div>
   </div>
 </template>
@@ -29,7 +38,40 @@ export default {
         id: Math.random()
       })
     this.newItem = ''
+    },
+    selectItem(id) {
+      const index = this.items.findIndex(el => el.id === id)
+      this.items[index].completed = true
     }
   }
 }
 </script>
+
+<style>
+  .container {
+    margin: 0 auto;
+    width: 250px;
+  }
+
+  .form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .item {
+    border: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+    padding: 10px;
+  }
+
+  .item_completed {
+    opacity: 0.5;
+  }
+
+  .item_completed span {
+    text-decoration: line-through;
+  }
+</style>
