@@ -1,9 +1,8 @@
 <template>
   <div class="container">
-    <div class="form">
-      <input placeholder="Todo" v-model="newItem"/>
-      <button @click="addItem">Add</button>
-    </div>     
+    <TodoForm 
+        :items="items"
+    />
 
     <TodoItem 
         v-for="item in items" 
@@ -19,15 +18,16 @@
 </template>
 
 <script>
+    import TodoForm from '../TodoForm/TodoForm';
     import TodoItem from '../TodoItem/TodoItem';
 
     export default {
         components: {
+            TodoForm,
             TodoItem
         },
         data() {
             return {
-                newItem: '',
                 items: [
                     { title: 'To water the plants', completed: false, id: 1 },
                     { title: 'Take out the trash', completed: true, id: 2 }
@@ -35,14 +35,6 @@
             }
         },
         methods: {
-            addItem() {
-                this.items.push({ 
-                    title: this.newItem, 
-                    completed: false, 
-                    id: Math.random()
-                })
-                this.newItem = ''
-            },
             selectItem(id) {
                 const index = this.items.findIndex(el => el.id === id)
                 this.items[index].completed = true
